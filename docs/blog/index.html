@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blog — All Stories | Wanderlust Chronicles</title>
+<meta name="description" content="Browse all travel stories and adventures on Wanderlust Chronicles.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<!-- Add your Google Analytics tag here if needed -->
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="logo"><span class="logo-icon">✦</span> Wanderlust Chronicles</a>
+    <nav class="main-nav">
+      <a href="/" >Home</a>
+      <a href="/blog/" style="color:var(--color-accent)">Blog</a>
+      <a href="/about/" >About</a>
+    </nav>
+    <button class="mobile-toggle" onclick="this.nextElementSibling&&document.querySelector('.main-nav').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="page-header">
+  <div class="container">
+    <h1>All Stories</h1>
+    <p>0 adventures and counting</p>
+  </div>
+</div>
+<section class="section">
+  <div class="container">
+    <div class="blog-toolbar">
+      <form class="search-form" onsubmit="filterPosts(event)">
+        <input type="text" id="search" placeholder="Search stories…" oninput="filterPosts()">
+        <button type="submit">Search</button>
+      </form>
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="setFilter('',this)">All</button>
+        <button class="filter-btn" onclick="setFilter('cat-destinations',this)">Destinations</button>
+        <button class="filter-btn" onclick="setFilter('cat-food',this)">Food &amp; Culture</button>
+        <button class="filter-btn" onclick="setFilter('cat-adventure',this)">Adventure</button>
+        <button class="filter-btn" onclick="setFilter('cat-tips',this)">Travel Tips</button>
+      </div>
+    </div>
+    <div class="post-grid" id="grid">
+      <div class="empty-state">No posts yet — check back soon!</div>
+    </div>
+  </div>
+</section>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>✦ Wanderlust Chronicles</h3>
+        <p>Sharing stories, discoveries, and the joy of exploring our beautiful world — one journey at a time.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="/">Home</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <a href="/blog/?category=cat-destinations">Destinations</a>
+      <a href="/blog/?category=cat-food">Food &amp; Culture</a>
+      <a href="/blog/?category=cat-adventure">Adventure</a>
+      <a href="/blog/?category=cat-tips">Travel Tips</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Wanderlust Chronicles. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+<script>
+const ALL_POSTS = [];
+const ALL_CATS  = [{"id":"cat-destinations","name":"Destinations","slug":"destinations"},{"id":"cat-food","name":"Food & Culture","slug":"food-culture"},{"id":"cat-adventure","name":"Adventure","slug":"adventure"},{"id":"cat-tips","name":"Travel Tips","slug":"travel-tips"}];
+let activeCategory = '';
+
+// Read ?category= from URL on load
+(function(){
+  const p = new URLSearchParams(location.search);
+  const c = p.get('category');
+  if(c){ activeCategory = c; document.querySelectorAll('.filter-btn').forEach(b=>{ b.classList.toggle('active', b.textContent.trim() === (ALL_CATS.find(x=>x.id===c)||{}).name); }); filterPosts(); }
+})();
+
+function setFilter(catId, btn){
+  activeCategory = catId;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  filterPosts();
+}
+
+function filterPosts(e){ if(e)e.preventDefault(); render(); }
+
+function render(){
+  const q = document.getElementById('search').value.toLowerCase();
+  let posts = ALL_POSTS;
+  if(activeCategory) posts = posts.filter(p=>p.categoryId===activeCategory);
+  if(q) posts = posts.filter(p=> p.title.toLowerCase().includes(q)||p.excerpt.toLowerCase().includes(q)||(p.tags||[]).some(t=>t.toLowerCase().includes(q)));
+  const grid = document.getElementById('grid');
+  if(!posts.length){ grid.innerHTML='<div class="empty-state">No stories match your search.</div>'; return; }
+  grid.innerHTML = posts.map(p=>{
+    const cat = ALL_CATS.find(c=>c.id===p.categoryId);
+    const img = p.featuredImage||'/uploads/default-travel.jpg';
+    const date = new Date(p.createdAt).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+    return `<article class="post-card">
+  <a href="/blog/${p.slug}/" class="post-card-image" style="background-image:url('${img}')">
+    ${cat?'<span class="post-card-category">'+cat.name+'</span>':''}
+  </a>
+  <div class="post-card-content">
+    <time>${date}</time>
+    <h3><a href="/blog/${p.slug}/">${p.title}</a></h3>
+    <p>${p.excerpt||''}</p>
+    <a href="/blog/${p.slug}/" class="read-more">Read More →</a>
+  </div>
+</article>`;
+  }).join('');
+}
+document.querySelector('.mobile-toggle').addEventListener('click', () => {
+  document.querySelector('.main-nav').classList.toggle('open');
+});
+</script>
+</body>
+</html>

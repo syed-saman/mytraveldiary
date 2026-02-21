@@ -1,0 +1,6 @@
+[
+  { "id": "cat-destinations", "name": "Destinations", "slug": "destinations" },
+  { "id": "cat-food",         "name": "Food & Culture", "slug": "food-culture" },
+  { "id": "cat-adventure",    "name": "Adventure",      "slug": "adventure" },
+  { "id": "cat-tips",         "name": "Travel Tips",    "slug": "travel-tips" }
+]

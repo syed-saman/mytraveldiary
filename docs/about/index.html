@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>About | Wanderlust Chronicles</title>
+<meta name="description" content="Learn about Wanderlust Chronicles and the person behind the stories.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<!-- Add your Google Analytics tag here if needed -->
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="logo"><span class="logo-icon">✦</span> Wanderlust Chronicles</a>
+    <nav class="main-nav">
+      <a href="/" >Home</a>
+      <a href="/blog/" >Blog</a>
+      <a href="/about/" style="color:var(--color-accent)">About</a>
+    </nav>
+    <button class="mobile-toggle" onclick="this.nextElementSibling&&document.querySelector('.main-nav').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="page-header">
+  <div class="container">
+    <h1>About</h1>
+    <p>The story behind the stories</p>
+  </div>
+</div>
+<section class="section">
+  <div class="container about-container">
+    <div class="about-content">
+      <div class="about-image">
+        <img src="/uploads/about-photo.jpg" alt="About photo" onerror="this.style.display='none'">
+      </div>
+      <div class="about-text">
+        <h2>Hello, I'm a wanderer.</h2>
+        <p>Welcome to Wanderlust Chronicles — a space where travel stories come to life. From bustling city streets to remote mountain trails, I share every adventure, discovery, and lesson learned along the way.</p>
+        <h3>Why I travel</h3>
+        <p>Travel has a way of reshaping how we see the world and ourselves. Every destination offers a new perspective, a new flavour, and new friendships.</p>
+        <h3>What you'll find here</h3>
+        <p>Honest travel stories, practical tips, cultural insights, and photography from around the globe. No sponsored fluff — just real experiences.</p>
+        <p style="margin-top:24px"><a href="/blog/" class="btn">Read the Blog →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>✦ Wanderlust Chronicles</h3>
+        <p>Sharing stories, discoveries, and the joy of exploring our beautiful world — one journey at a time.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="/">Home</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about/">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <a href="/blog/?category=cat-destinations">Destinations</a>
+      <a href="/blog/?category=cat-food">Food &amp; Culture</a>
+      <a href="/blog/?category=cat-adventure">Adventure</a>
+      <a href="/blog/?category=cat-tips">Travel Tips</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Wanderlust Chronicles. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+<script>
+document.querySelector('.mobile-toggle').addEventListener('click', () => {
+  document.querySelector('.main-nav').classList.toggle('open');
+});
+</script>
+</body>
+</html>
