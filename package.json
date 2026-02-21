@@ -1,0 +1,11 @@
+{
+  "name": "travel-blog-static",
+  "version": "1.0.0",
+  "description": "Wanderlust Chronicles — static travel blog with local admin panel",
+  "scripts": {
+    "admin": "node admin-server.js",
+    "build": "node build.js",
+    "publish": "node build.js && echo \"\n✓ Site built in docs/ — commit and push to deploy to GitHub Pages\""
+  },
+  "engines": { "node": ">=18" }
+}
